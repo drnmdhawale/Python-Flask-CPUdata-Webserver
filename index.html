@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Laptop CPU Perfomance Data</title>
+    <link rel="stylesheet" href='../static/style.css'/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+		body {
+			text-align: center;
+		}
+
+		#g1,
+		#g2 {
+			width: 200px;
+			height: 160px;
+			display: inline-block;
+			margin: 1em;
+		}
+
+    </style>
+</head>
+
+<body>
+	<h1>Laptop CPU Perfomance Data </h1>
+    <div id="g1"></div>
+    <div id="g2"></div>
+    <hr>
+	<h3> Last Sensors Reading: {{ time }} ==> <a href="/"class="button">REFRESH</a></h3>	
+	<hr>
+	<h3> HISTORICAL DATA </h3>
+		<p> Enter range of time to be retrieved in minutes (Sample Frequency: {{ freq }} minutes)
+		<form method="POST">
+			<input name="rangeTime" value= {{rangeTime}}>
+			<input type="submit">
+		</form></p>
+		<hr>
+		<img src="/plot/cpu_percent" alt="Image Placeholder" width="25%">
+		<img src="/plot/cpu_count" alt="Image Placeholder" width="25%">
+	
+	<p> @2023-24 Developed by Dr.NMD</p>
+    
+    <script src="../static/raphael-2.1.4.min.js"></script>
+    <script src="../static/justgage.js"></script>
+    <script>
+		var g1, g2;
+		document.addEventListener("DOMContentLoaded", function(event) {
+			g1 = new JustGage({
+				id: "g1",
+				value: {{cpu_percent}},
+				valueFontColor: "yellow",
+				titleFontColor: "yellow",
+				min: 0,
+				max: 100,
+				title: "CPU PERCENTAGE",
+				label: "%"
+			});
+
+			g2 = new JustGage({
+				id: "g2",
+				value: {{cpu_count}},
+				valueFontColor: "yellow",
+				titleFontColor: "yellow",
+				min: 0,
+				max: 6,
+				title: "CPU COUNT",
+				label: ""
+			});
+
+		});
+    </script>
+</body>
+
+</html>
